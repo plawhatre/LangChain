@@ -13,3 +13,6 @@ echo "Ollama installation complete."
 
 # Download the Mistral model
 ollama pull mistral:v0.3
+
+# Create a virtual environment
+python3 -m venv env_langchain
