@@ -4,7 +4,10 @@ from langchain_ollama import ChatOllama
 from langchain_google_genai import ChatGoogleGenerativeAI
 
 if __name__ == '__main__':
+    # setting
     run_local = True
+    stream = False
+    
     if run_local:
         # Mistral-7b-v0.3 or deepseek-r1:1.5b
         llm = ChatOllama(
@@ -26,4 +29,8 @@ if __name__ == '__main__':
     ]
 
     # generate response
-    print(llm.invoke(messages).content)
+    if not stream:
+        print(llm.invoke(messages).content)
+    else:
+        for chunk in llm.stream(messages):
+            print(chunk.content)
