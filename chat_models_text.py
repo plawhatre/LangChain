@@ -40,7 +40,6 @@ if __name__ == '__main__':
         SystemMessagePromptTemplate.from_template("You are a funny comedian."),
         HumanMessagePromptTemplate.from_template("tell me a joke on {topic}. Also, rate teh joke on a scale of 1 to 10.")
     ])
-    import pdb; pdb.set_trace()
 
     # Chain
     if not stream:
