@@ -18,7 +18,7 @@ if __name__ == '__main__':
         os.environ['GOOGLE_API_KEY'] = getpass("Enter the API key: ")
     llm = ChatGoogleGenerativeAI(model='gemini-2.0-flash', temperature = 0.8)
 
-    # Prompt and invocation
+    # Prompt and Payload
     if local_data: 
         # a. Multimodal Inputs: Image base 64 (from  local)
         print("a. Multimodal Inputs: Image base 64 (from  local)")
@@ -42,8 +42,8 @@ if __name__ == '__main__':
                 }
             ]
         }
-        # generate response
-        print(llm.invoke([message1]).content)
+        prompt_template = ChatPromptTemplate([message1])
+        payload = {}
 
     if url_b64:
         # b. Multimodal Inputs: Image base64 (from url)
@@ -67,13 +67,13 @@ if __name__ == '__main__':
                 }
             ]
         )
-        # generate response 
-        chain = prompt_template | llm
-        print(chain.invoke({"image_data": image_data}).content)
+        payload = {"image_data": image_data}
 
     if url_stream:
         # c. Multimodal Inputs: Image URL
         print("c. Multimodal Inputs: Image URL")
+        image_url = "https://www.nps.gov/npgallery/GetAsset/bbbb9e25-091b-4f44-bfda-76bc2f8927e8/proxy/hires?"
+
         message3 = {
             "role": "user",
             "content": [
@@ -88,5 +88,9 @@ if __name__ == '__main__':
                 }
             ]
         }
-        # generate response
-        print(llm.invoke([message3]).content)
+        prompt_template = ChatPromptTemplate([message3])
+        payload = {}
+        
+# generate response 
+chain = prompt_template | llm
+print(chain.invoke(payload).content)
