@@ -18,8 +18,8 @@ def addition(a: float, b: float) -> float:
 
 if __name__ == '__main__':
     # Messages and Prompt
-    system_message = SystemMessage("You are a helpful assistant. You help with any question that is asked to you.")
-    human_message = HumanMessage("What is multiplication of 5.2 and 63. Then add that number with 23 ?")
+    system_message = SystemMessage("You are a helpful assistant who helps with any question asked of you.")
+    human_message = HumanMessage("Multiply 5.2 by 63, then add 23 to the result.?")
     messages = [system_message, human_message]
 
     # Model
