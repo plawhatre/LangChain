@@ -20,7 +20,7 @@ chain2 = RunnableParallel(first=runnable1, second=runnable2, third=runnable3)
 chain2alias = RunnableMap(first=runnable1, second=runnable2, third=runnable3)
 print('RunnableSequence: ', chain1.invoke(x)) 
 print('RunnableParallel: ', chain2.invoke(x))
-print('RunnableMap (alias of RunnableParallel): ', chain2.invoke(x))
+print('RunnableMap (alias of RunnableParallel): ', chain2alias.invoke(x))
 
 # Composition Syntax
 chain1_operator = runnable1 | runnable2 | runnable3
