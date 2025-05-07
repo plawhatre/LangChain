@@ -1,7 +1,7 @@
 import os
 import httpx
 from langchain_community.document_loaders import PyPDFLoader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter, CharacterTextSplitter, TokenTextSplitter
 
 if __name__ == '__main__':
 
@@ -17,10 +17,25 @@ if __name__ == '__main__':
     documents = PyPDFLoader(filename).load()
 
     # Step2: Split the document
-    all_splits = RecursiveCharacterTextSplitter(
+    all_splits1 = TokenTextSplitter(
         chunk_size=1000,
         chunk_overlap=200,
         add_start_index=True
     ).split_documents(documents)
 
-    print(all_splits[0].page_content)
+    all_splits2 = CharacterTextSplitter(
+        chunk_size=1000,
+        chunk_overlap=200,
+        add_start_index=True
+    ).split_documents(documents)
+
+    all_splits3 = RecursiveCharacterTextSplitter(
+        chunk_size=1000,
+        chunk_overlap=200,
+        add_start_index=True
+    ).split_documents(documents)
+
+    print(all_splits1[0].page_content)
+    print(all_splits2[0].page_content)
+    print(all_splits3[0].page_content)
+    
