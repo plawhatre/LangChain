@@ -4,7 +4,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_ollama import OllamaEmbeddings
 from langchain_core.vectorstores import InMemoryVectorStore
 from langchain_community.docstore.in_memory import InMemoryDocstore
-from langchain.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS
 
 
 if __name__ == "__main__":
