@@ -64,6 +64,23 @@ if __name__ == "__main__":
     ids = vector_store.add_documents(chunks) 
     # Step4.b: Delete the documents
     vector_store.delete(ids=ids[-2:]) 
-    # Step4.c: Similarity search
+
+    # Step4.c.1: Similarity search (input: query, output: without score)
     similar_docs = vector_store.similarity_search(query, k=3) 
-    print(similar_docs)
+    print(f"input: query, output: without score\n{similar_docs[0]}")
+
+    # Step4.c.2: Similarity search (input: embeddings, output: without score)
+    query_vector = embedder.embed_query(query)
+    similar_docs = vector_store.similarity_search_by_vector(query_vector, k=3)
+    print(f"input: embeddings, output: without score\n{similar_docs[0]}")
+
+    # Step4.c.3: Similarity search (input: query, output: with score)
+    similar_docs_with_score = vector_store.similarity_search_with_score(query, k=3)
+    print(f"input: query, output: with score\nScore = {similar_docs_with_score[0][1]}\n{similar_docs_with_score[0][0]}")
+
+    # Step4.c.4: Similarity search (input: embeddings, output: with score)
+    query_vector = embedder.embed_query(query)
+    similar_docs_with_score = vector_store.similarity_search_with_score_by_vector(query_vector, k=3)
+    print(f"input: embeddings, output: with score\nScore = {similar_docs_with_score[0][1]}\n{similar_docs_with_score[0][0]}")
+
+
