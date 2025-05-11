@@ -28,13 +28,8 @@ if __name__ == '__main__':
     )
     docs = splitter.split_documents(docs)
 
-    # Step3: Vector Store
-    vectorstore = Chroma(
-        collection_name="all_docs", 
-        embedding_function=OllamaEmbeddings(model='mistral:v0.3')
-    )
-
-    # Step4.a: Smaller Chunks
+    # Perform: Multivector technique -> a. Smaller Chunks
+    # Step3.a.1: Get sub docs and doc_ids
     id_key = 'doc_id' 
     child_text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=300, 
@@ -51,14 +46,22 @@ if __name__ == '__main__':
             _doc.metadata[id_key] = _id
         sub_docs.extend(_sub_docs)
 
+    # Step3.a.2: Vectorstore, Docstore, Retriever
+    vectorstore = Chroma(
+        collection_name="all_docs", 
+        embedding_function=OllamaEmbeddings(model='mistral:v0.3')
+    )
+    byte_store = InMemoryByteStore()
     retriever = MultiVectorRetriever(
         vectorstore=vectorstore,
-        byte_store=InMemoryByteStore(),
+        byte_store=byte_store,
         id_key=id_key
     )
+
     retriever.vectorstore.add_documents(sub_docs)
     retriever.docstore.mset(list(zip(doc_ids, docs)))
 
+    # Step3.a.3: Get output
     otuput_smaller_chunks = retriever.invoke(query)
     print(otuput_smaller_chunks[0].page_content)
 
