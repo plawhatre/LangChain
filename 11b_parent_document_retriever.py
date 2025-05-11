@@ -33,8 +33,14 @@ if __name__ == "__main__":
     docs.extend(docs2)
 
     # Step2: Splitter for child documents
-    splitter = RecursiveCharacterTextSplitter(
+    child_splitter = RecursiveCharacterTextSplitter(
         chunk_size=400,
+        chunk_overlap=200,
+        add_start_index=False
+    )
+
+    parent_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=2000,
         chunk_overlap=200,
         add_start_index=False
     )
@@ -53,7 +59,8 @@ if __name__ == "__main__":
 
     # Step6: Retriever
     retriever = ParentDocumentRetriever(
-        child_splitter=splitter,
+        child_splitter=child_splitter,
+        parent_splitter=parent_splitter,
         vectorstore=vectorstore,
         docstore=docstore
     )
