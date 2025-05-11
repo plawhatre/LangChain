@@ -42,7 +42,7 @@ if __name__ == "__main__":
         weights=[0.5, 0.5]
     )
 
-    # Step3: Invoke retrievers
+    # Step3: Invoke retrievers (with optional config)
     config = {"configurable": {"search_kwargs_faiss": {'k': 1}}}
     docs = ensemble_retriever.invoke("apple", config=config)
     for doc in docs:
