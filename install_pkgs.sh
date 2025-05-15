@@ -10,3 +10,4 @@ pip install protobuf==6.30.0
 python -m pip install langchain-chroma>=0.1.2
 python -m pip install rank_bm25
 python -m pip install langgraph>0.2.27
+python -m pip install bs4
