@@ -25,7 +25,7 @@ if __name__ == '__main__':
     # Model
     if 'GOOGLE_API_KEY' not in os.environ:
         os.environ['GOOGLE_API_KEY'] = getpass.getpass("Enter the api key for gemini-2.0-flash: ")
-    llm = ChatOllama(model='mistral:v0.3', temperature=0.0)
+    llm = ChatOllama(model='mistral:v0.3')
     llm_with_tools = llm.bind_tools([addition, multiply])
 
     # invocation
